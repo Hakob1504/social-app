@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useSelector } from 'react-redux'
@@ -19,6 +19,8 @@ interface FormValues {
 const RegisterPage: React.FC = () => {
     const { title } = useSelector((state: Rootstate) => state.registerData)
 
+    const [isRegistered, setIsRegistered] = useState<boolean | null>(null)
+
     const {
         register,
         handleSubmit,
@@ -28,16 +30,35 @@ const RegisterPage: React.FC = () => {
     })
 
     const onSubmit: SubmitHandler<FormValues> = async (data) => {
-        const res = await fetchData.sendRegisterData(data)
+        try {
+            const res = await fetchData.sendRegisterData(data)
 
-        if(res.status === 200 || res.status === 201) {
-            
+            if (res.status === 200 || res.status === 201) {
+                setIsRegistered(true)
+            }
+        } catch (error) {
+            setIsRegistered(false)
         }
     };
 
+    function renderModal() {
+        if (isRegistered === null) return null
+        if (isRegistered) {
+            return <RegisterModal
+                isRegistered={isRegistered}
+                setIsRegistered={setIsRegistered}
+            />
+        } else {
+            return <RegisterModal
+                isRegistered={isRegistered}
+                setIsRegistered={setIsRegistered}
+            />
+        }
+    }
 
     return (
         <div className='register_page_div'>
+            {renderModal()}
             <h2>{title}</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="register_inputs_div">
