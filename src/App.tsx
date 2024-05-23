@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import LandingPage from './pages/LandingPage/LandingPage'
 import RegisterPage from './pages/RegisterPage/RegisterPage'
+import LoginPage from './pages/LoginPage/LoginPage'
 
 //todo 1 create reusable form component
 // todo create validation file config 
@@ -16,7 +17,7 @@ function App() {
     <div className='App'>
       <Routes>
         <Route path='/' element={<LandingPage />} />
-        <Route path='/login' element={<p>login</p>} />
+        <Route path='/login' element= {<LoginPage/>} />
         <Route path='/register' element={<RegisterPage />} />
         <Route path='profile' element={<p>profile</p>} />
       </Routes>
