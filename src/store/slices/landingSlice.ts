@@ -3,7 +3,7 @@ import { InitialState } from "../../pages/LandingPage/type";
 
 const initialState: InitialState = {
     title: 'Landing page',
-    buttonsInfo: [
+    buttonsInfo: [  // todo  save in config file
         {
             id: 1,
             text: "Log in",
