@@ -17,7 +17,7 @@ interface FormValues {
 }
 
 const RegisterPage: React.FC = () => {
-    const { title } = useSelector((state: Rootstate) => state.registerData)
+    const { title } = useSelector((state: Rootstate) => state.registerData) // save title in config file
 
     const [isRegistered, setIsRegistered] = useState<boolean | null>(null)
 
