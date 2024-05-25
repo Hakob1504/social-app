@@ -59,7 +59,7 @@ const RegisterPage: React.FC = () => {
     function renderModal() {
         if (isRegistered === null) return null
         if (isRegistered) {
-            return <RegisterModal
+            return <RegisterModal //todo chsnge modsl component name and logick
                 isRegistered={isRegistered}
                 setIsRegistered={setIsRegistered}
             />

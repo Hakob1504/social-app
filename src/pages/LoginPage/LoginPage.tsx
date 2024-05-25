@@ -27,6 +27,8 @@ const LoginPage: React.FC = () => {
         formState: { errors }
     } = useForm<FormValues>();
 
+    //todo make requests in redux thunk, 
+
     const onSubmit: SubmitHandler<FormValues> = async (data) => {
         try {
             const res = await fetchData.sendLoginData(data);
