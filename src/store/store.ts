@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
-import landingSlice from "./slices/landingSlice";
-import registerSlice from "./slices/registerSlice";
-import loginSlice from "./slices/loginSlice";
+import landingSlice from "./features/landing/landingSlice";
+import registerSlice from "./features/register/registerSlice";
+import loginSlice from "./features/login/loginSlice";
 
 const store = configureStore({
     reducer: {

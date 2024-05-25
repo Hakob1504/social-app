@@ -1,20 +1,6 @@
-import { EnumLogin } from './../../pages/LoginPage/type';
 import { createSlice,PayloadAction } from "@reduxjs/toolkit";
 
-const initialState:EnumLogin = {
-    title:'Login',
-    inputsInfo :[
-        {
-            id:1,
-            type:"text",
-            placeholder:"email"
-        },
-        {
-            id:2,
-            type:"text",
-            placeholder:"password"
-        }
-    ],
+const initialState = {
     loginError: ''
 }
 

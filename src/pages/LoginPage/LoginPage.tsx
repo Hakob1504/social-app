@@ -1,12 +1,13 @@
 import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { useDispatch, useSelector } from 'react-redux'
 import { Rootstate } from '../../store/store'
-import { fetchLoginData } from '../../api/api'
-import { setLoginError } from '../../store/slices/loginSlice'
-import './style.css'
+import { fetchData } from '../../api/api'
+import { setLoginError } from '../../store/features/login/loginSlice'
+import { loginConfig } from '../../config/config'
 import { useNavigate } from 'react-router-dom'
+import { useCustomDispatch, useCustomSelector } from '../../customHooks/customHooks'
 
+import './style.css'
 
 
 interface FormValues {
@@ -16,8 +17,9 @@ interface FormValues {
 
 const LoginPage: React.FC = () => {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const { title, loginError } = useSelector((state: Rootstate) => state.loginData);
+    const dispatch = useCustomDispatch();
+    const { loginError } = useCustomSelector((state: Rootstate) => state.loginData);
+    const { title } = loginConfig
 
     const {
         register,
@@ -27,7 +29,7 @@ const LoginPage: React.FC = () => {
 
     const onSubmit: SubmitHandler<FormValues> = async (data) => {
         try {
-            const res = await fetchLoginData.sendLoginData(data);
+            const res = await fetchData.sendLoginData(data);
 
             if (res.status === 200 || res.status === 201) {
                 navigate('/profile');
@@ -68,7 +70,7 @@ const LoginPage: React.FC = () => {
                     </label>
                 </div>
                 <button className='login_btn'>Login</button>
-                {loginError && <p className="error-message">{loginError}</p>} 
+                {loginError && <p className="error-message">{loginError}</p>}
             </form>
         </div>
     )

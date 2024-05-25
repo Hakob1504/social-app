@@ -1,14 +1,15 @@
 import React, { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useSelector } from 'react-redux'
-import { Rootstate } from '../../store/store'
 import schema from './registerSchema'
 import { fetchData } from '../../api/api'
-import RegisterModal from '../../components/RegisterModal/RegisterModal'
+import RegisterModal from '../../components/Modal/Modal'
+import { registerConfig } from '../../config/config'
+
+import { Bounce, ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 import './style.css'
-
 
 interface FormValues {
     name: string,
@@ -17,8 +18,8 @@ interface FormValues {
 }
 
 const RegisterPage: React.FC = () => {
-    const { title } = useSelector((state: Rootstate) => state.registerData)
 
+    const { title } = registerConfig
     const [isRegistered, setIsRegistered] = useState<boolean | null>(null)
 
     const {
@@ -32,12 +33,26 @@ const RegisterPage: React.FC = () => {
     const onSubmit: SubmitHandler<FormValues> = async (data) => {
         try {
             const res = await fetchData.sendRegisterData(data)
-
+            
             if (res.status === 200 || res.status === 201) {
                 setIsRegistered(true)
             }
         } catch (error) {
             setIsRegistered(false)
+            toast('Registration failed, invaild email address', {
+                position: "top-right",
+                autoClose: false,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: false,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+                style: {
+                    color: 'red',
+                }
+            });
         }
     };
 
@@ -49,10 +64,7 @@ const RegisterPage: React.FC = () => {
                 setIsRegistered={setIsRegistered}
             />
         } else {
-            return <RegisterModal
-                isRegistered={isRegistered}
-                setIsRegistered={setIsRegistered}
-            />
+            return <ToastContainer />
         }
     }
 

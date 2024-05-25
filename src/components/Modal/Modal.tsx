@@ -8,7 +8,7 @@ interface ModalProps {
   setIsRegistered: React.Dispatch<React.SetStateAction<boolean | null>>
 }
 
-const RegisterModal: React.FC<ModalProps> = ({ isRegistered, setIsRegistered }) => {
+const Modal: React.FC<ModalProps> = ({ isRegistered, setIsRegistered }) => {
   const navigate = useNavigate()
 
   let messageBig: string = isRegistered ? "You Registered Successfuly!" : "Registration Failed!"
@@ -35,4 +35,4 @@ const RegisterModal: React.FC<ModalProps> = ({ isRegistered, setIsRegistered }) 
   )
 }
 
-export default RegisterModal
+export default Modal
