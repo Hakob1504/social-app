@@ -1,6 +1,14 @@
+<<<<<<< HEAD:src/store/slices/loginSlice.ts
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from 'axios';
 
+=======
+import { createSlice,PayloadAction } from "@reduxjs/toolkit";
+
+const initialState = {
+    loginError: ''
+}
+>>>>>>> 029635aaedf8ec618b076c702d94484594b85db7:src/store/features/login/loginSlice.ts
 
 const initialState = {
     title: 'Login',

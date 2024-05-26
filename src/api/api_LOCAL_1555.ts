@@ -7,4 +7,6 @@ export const fetchData = {
                 "Content-Type": 'application/json'
             }
         })
-    },
+    }
+}
+

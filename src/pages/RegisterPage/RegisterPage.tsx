@@ -1,16 +1,23 @@
 import React, { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useSelector } from 'react-redux'
-import { Rootstate } from '../../store/store'
 import schema from './registerSchema'
 import { fetchData } from '../../api/api'
+<<<<<<< HEAD
 import RegisterModal from '../../components/RegisterModal/RegisterModal'
 import Modal from '../../components/Modal'
+=======
+import RegisterModal from '../../components/Modal/Modal'
+import { registerConfig } from '../../config/config'
+
+import { Bounce, ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
+>>>>>>> 029635aaedf8ec618b076c702d94484594b85db7
 import './style.css'
 
-
 interface FormValues {
+<<<<<<< HEAD
     name: string;
     email: string;
     password: string;
@@ -34,6 +41,61 @@ interface FormValues {
           setIsRegistered(true);
         } else {
           setIsRegistered(false);
+=======
+    name: string,
+    email: string,
+    password: string
+}
+
+const RegisterPage: React.FC = () => {
+
+    const { title } = registerConfig
+    const [isRegistered, setIsRegistered] = useState<boolean | null>(null)
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors }
+    } = useForm<FormValues>({
+        resolver: yupResolver(schema)
+    })
+
+    const onSubmit: SubmitHandler<FormValues> = async (data) => {
+        try {
+            const res = await fetchData.sendRegisterData(data)
+            
+            if (res.status === 200 || res.status === 201) {
+                setIsRegistered(true)
+            }
+        } catch (error) {
+            setIsRegistered(false)
+            toast('Registration failed, invaild email address', {
+                position: "top-right",
+                autoClose: false,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: false,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+                style: {
+                    color: 'red',
+                }
+            });
+        }
+    };
+
+    function renderModal() {
+        if (isRegistered === null) return null
+        if (isRegistered) {
+            return <RegisterModal //todo chsnge modsl component name and logick
+                isRegistered={isRegistered}
+                setIsRegistered={setIsRegistered}
+            />
+        } else {
+            return <ToastContainer />
+>>>>>>> 029635aaedf8ec618b076c702d94484594b85db7
         }
         setIsModalOpen(true);
       } catch (error) {

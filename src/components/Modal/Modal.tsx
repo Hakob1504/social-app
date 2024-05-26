@@ -9,7 +9,11 @@ interface ModalProps {
   setIsModalOpen:boolean
 }
 
+<<<<<<< HEAD:src/components/RegisterModal/RegisterModal.tsx
 const RegisterModal: React.FC<ModalProps> = ({ isRegistered, setIsRegistered,setIsModalOpen }) => {
+=======
+const Modal: React.FC<ModalProps> = ({ isRegistered, setIsRegistered }) => {
+>>>>>>> 029635aaedf8ec618b076c702d94484594b85db7:src/components/Modal/Modal.tsx
   const navigate = useNavigate()
 
   let messageBig: string = isRegistered ? "You Registered Successfuly!" : "Registration Failed!"
@@ -34,4 +38,4 @@ const RegisterModal: React.FC<ModalProps> = ({ isRegistered, setIsRegistered,set
   )
 }
 
-export default RegisterModal
+export default Modal

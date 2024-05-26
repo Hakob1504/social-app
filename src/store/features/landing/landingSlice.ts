@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { InitialState } from "../../pages/LandingPage/type";
+import { InitialState } from "../../../pages/LandingPage/type";
 
 const initialState: InitialState = {
     title: 'Landing page'
