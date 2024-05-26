@@ -1,23 +1,21 @@
-import React from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
-import { useDispatch, useSelector } from 'react-redux'
-import { Rootstate } from '../../store/store'
-import { fetchLoginData } from '../../api/api'
-import { setLoginError } from '../../store/slices/loginSlice'
-import './style.css'
-import { useNavigate } from 'react-router-dom'
-
-
+import React from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { Rootstate } from '../../store/store';
+import { loginAsync } from '../../store/slices/loginSlice';
+import './style.css';
+import { useNavigate } from 'react-router-dom';
 
 interface FormValues {
     email: string;
     password: string;
+  
 }
 
 const LoginPage: React.FC = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { title, loginError } = useSelector((state: Rootstate) => state.loginData);
+    const { error } = useSelector((state: Rootstate) => state.loginData); 
 
     const {
         register,
@@ -25,26 +23,19 @@ const LoginPage: React.FC = () => {
         formState: { errors }
     } = useForm<FormValues>();
 
-    //todo make requests in redux thunk, 
-
     const onSubmit: SubmitHandler<FormValues> = async (data) => {
-        try {
-            const res = await fetchLoginData.sendLoginData(data);
-
-            if (res.status === 200 || res.status === 201) {
-                navigate('/profile');
-            } else {
-                dispatch(setLoginError('Password or email are incorrect'));
-            }
-        } catch (error) {
-            dispatch(setLoginError('Password or email are incorrect'));
+        const resultAction: = await dispatch(loginAsync(data));
+        if (loginAsync.fulfilled.match(resultAction)) {
+            navigate('/profile');
         }
     };
 
     return (
         <div className='login_page_div'>
-            <h2>{title}</h2>
+            <h2>Login</h2>
+           
             <form onSubmit={handleSubmit(onSubmit)}>
+            {error && <p className="error-message">{error}</p>}
                 <div className="login_inputs_div">
                     <label>
                         <input
@@ -69,11 +60,10 @@ const LoginPage: React.FC = () => {
                         <p>{errors.password?.message}</p>
                     </label>
                 </div>
-                <button className='login_btn'>Login</button>
-                {loginError && <p className="error-message">{loginError}</p>} 
+                <button type="submit" className='login_btn'>Login</button>
             </form>
         </div>
-    )
-}
+    );
+};
 
 export default LoginPage;

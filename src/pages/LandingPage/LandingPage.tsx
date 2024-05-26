@@ -2,13 +2,14 @@
 import React from 'react'
 import './style.css'
 import { Rootstate } from '../../store/store'
+import { buttonsInfo } from './Buttons'
 import { useCustomSelector } from '../../customHooks/customHooks'
 import { useNavigate } from 'react-router-dom'
 
 
 
 const LandingPage: React.FC = () => {
-  const { title, buttonsInfo } = useCustomSelector((state: Rootstate) => state.landingData)
+  const { title } = useCustomSelector((state: Rootstate) => state.landingData)
   const navigate = useNavigate()
 
   function renderNav() {
